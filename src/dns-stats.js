@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../extensions/index.js");
 
 /**
  * Given an array of domains, return the object with the appearances of the DNS.
@@ -20,13 +20,35 @@ const { NotImplementedError } = require('../extensions/index.js');
  *   '.ru.yandex.code': 1,
  *   '.ru.yandex.music': 1,
  * }
- *
+ *npm test --g test/dns-stats.test.js
  */
-function getDNSStats(/* domains */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function getDNSStats(domains) {
+  let templates = {};
+  for (let i = 0; i < domains.length; i++) {
+    let domain = domains[i].split(".").reverse().join(".");
+    let dot;
+    let rest = "." + domain;
+
+    while (1) {
+      templates[rest] = 0;
+      dot = rest.lastIndexOf(".");
+      if (dot === 0) break;
+      rest = rest.slice(0, dot);
+    }
+  }
+
+  for (let i = 0; i < domains.length; i++) {
+    let domain = "." + domains[i].split(".").reverse().join(".");
+    for (let key in templates) {
+      if (domain.indexOf(key) >= 0) {
+        templates[key] = templates[key] + 1;
+      }
+    }
+  }
+
+  return templates;
 }
 
 module.exports = {
-  getDNSStats
+  getDNSStats,
 };
