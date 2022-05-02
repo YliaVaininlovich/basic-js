@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../extensions/index.js");
 
 /**
  * Given an email address, return it's domain.
@@ -8,13 +8,13 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  * @example
  * For the input 'prettyandsimple@example.com', the output should be 'example.com'
- *
+ *npm test --g test/get-email-domain.test.js
  */
-function getEmailDomain(/* email */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function getEmailDomain(email) {
+  const coll = email.split("@");
+  return email.match(/(?<=@)[^@]+$/g)[0];
 }
 
 module.exports = {
-  getEmailDomain
+  getEmailDomain,
 };
